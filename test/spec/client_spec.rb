@@ -15,7 +15,7 @@ describe 'InfluxDB UDP client' do
   it 'can build a line protocol from a hash' do
     fields = {value: 13, temperature: 12, sensor: 'left'}
     line = 'value=13,temperature=12,sensor="left"'
-    @client.to_line(fields).must_equal line
+    @client.to_field_line(fields).must_equal line
   end
 
   it 'can send a metric via UDP' do
@@ -28,7 +28,7 @@ describe 'InfluxDB UDP client' do
       value: 22
     }
 
-    expected = 'cpu,node="server1",os="ubuntu" value=22'
+    expected = 'cpu,node=server1,os=ubuntu value=22'
 
     reader, writer = IO.pipe
 
